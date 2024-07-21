@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="script.js"></script>
+</head>
+
+<body onload="getSongRequests()">
+    <form onsubmit="requestSong(); return false">
+        <label for="song">song:</label><br>
+        <input type="text" id="song" name="song"><br>
+        <label for="who">whomst:</label><br>
+        <input type="text" id="who" name="who"><br>
+        <input type="submit" value="send to dj vivo">
+    </form>
+
+    <h3>Requested Songs:</h3>
+    <ul id="queue"></ul>
+</body>
+
+</html>
