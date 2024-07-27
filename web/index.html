@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <head>
+    <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
 
-<body onload="getSongRequests()">
+<body onload="loadUp();">
+    <h1>DJVIVO</h1>
+    <h3 id="songprompt">song:</h3>
     <form onsubmit="requestSong(); return false">
-        <label for="song">song:</label><br>
-        <input type="text" id="song" name="song"><br>
-        <label for="who">whomst:</label><br>
-        <input type="text" id="who" name="who"><br>
-        <input type="submit" value="send to dj vivo">
+        <input type="text" id="song" name="song" placeholder="song please!">
+        <input type="text" id="who" name="who" placeholder="who are you?"><br>
+        </br>
+        <input id="submit" type="submit" value="please please please">
     </form>
 
-    <h3>Requested Songs:</h3>
-    <ul id="queue"></ul>
+    <div class="scrollable">
+        <ul id="queue"></ul>
+    </div>
 </body>
+
+<div class="footer">
+    <marquee behavior="scroll" direction="left" scrollamount="2">Site credits: djvivo by Arushi Bandi. Font credits:
+        Pilowlava by Anton
+        Moglia, Jérémy
+        Landes, with the contribution of Maksym Kobuzan. Distributed by <a href="velvetyne.fr">velvetyne.fr</a>
+    </marquee>
+</div>
 
 </html>

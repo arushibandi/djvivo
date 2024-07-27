@@ -1,0 +1,92 @@
+@font-face {
+    font-family: "Pilowlava";
+    src: url("assets/webfonts/Pilowlava-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "OpenSans";
+    src: url("assets/webfonts/OpenSans-Medium.woff2") format("woff2");
+}
+
+input:placeholder-shown {
+    font-style: italic;
+}
+
+:root {
+    --blue: #8FEBF9;
+    --dark-blue: #0946AF;
+    --pink: #F98FEB;
+    --yellow: #EBF98F;
+}
+
+html {
+    font-family: 'OpenSans';
+}
+
+h1 {
+    color: var(--yellow);
+    font-family: 'Pilowlava';
+    width: 100%;
+    margin: auto;
+    font-size: 60px;
+}
+
+h3 {
+    font-size: large;
+    margin-bottom: 0%;
+    padding-left: 10px;
+}
+
+input {
+    width: 80%;
+    font-size: large;
+    margin-top: 5px;
+    border-color: var(--yellow);
+}
+
+ul {
+    margin-right: 30%;
+}
+
+.scrollable {
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body {
+    margin: 15px;
+    background-image: url('assets/img/original.jpeg');
+    background-size: cover;
+}
+
+label {
+    margin-bottom: 100px;
+    text-align: justify;
+}
+
+.footer {
+    overflow-y: auto;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: var(--blue);
+    color: var(--dark-blue);
+    text-align: left;
+    font-size: x-small;
+    z-index: 0;
+}
+
+.footer p {
+    margin-left: 5%;
+}
+
+#submit {
+    background-color: var(--pink);
+    border-radius: 50px;
+    color: var(--dark-blue);
+    padding: 6px;
+    font-style: italic;
+    border-color: var(--yellow);
+}

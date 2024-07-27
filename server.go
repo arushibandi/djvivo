@@ -25,6 +25,7 @@ func NewServer(datadir string) *Server {
 }
 
 type songRequest struct {
+	Emoji     int    `json:"emoji"`
 	Song      string `json:"song"`
 	Requester string `json:"requester"`
 }
@@ -35,16 +36,18 @@ func (r songRequest) String() string {
 
 // song is the way a song request is internally represented and stored
 type song struct {
+	Emoji     int       `json:"emoji"`
 	Name      string    `json:"name"`
 	Requester string    `json:"requester"`
 	Created   time.Time `json:"created"`
 	Id        int       `json:"id"`
 }
 
-func (s Server) saveSongRequest(name string, requester string) error {
+func (s Server) saveSongRequest(name string, emoji int, requester string) error {
 	id := rand.Int()
 	created := time.Now()
 	newSong := song{
+		Emoji:     emoji,
 		Id:        id,
 		Created:   created,
 		Name:      name,
@@ -85,26 +88,29 @@ func (s Server) SongRequest(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("both song and requester need to be non-empty"))
 		return
 	}
-	s.saveSongRequest(req.Song, req.Requester)
+
+	s.saveSongRequest(req.Song, req.Emoji, req.Requester)
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("got request"))
 }
 
-func (s Server) getQueue() ([]song, error) {
-	files, err := os.ReadDir(s.dir)
+func (srv Server) getQueue() ([]song, error) {
+	files, err := os.ReadDir(srv.dir)
 	if err != nil {
 		return nil, err
 	}
 	songs := make([]song, len(files))
 	for i, file := range files {
-		bytes, err := os.ReadFile(path.Join(s.dir, file.Name()))
+		bytes, err := os.ReadFile(path.Join(srv.dir, file.Name()))
 		if err != nil {
-			return nil, err
+			log.Println("Unable to get file at ", srv.dir+file.Name())
+			continue
 		}
 		var s song
 		err = json.Unmarshal(bytes, &s)
 		if err != nil {
-			return nil, err
+			log.Println("Unable to unmarshal file at ", srv.dir+file.Name())
+			continue
 		}
 		songs[i] = s
 	}
@@ -119,6 +125,7 @@ type queueResponse struct {
 }
 
 func (s Server) Queue(w http.ResponseWriter, r *http.Request) {
+	log.Println("Received /queue with ")
 	queue, err := s.getQueue()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
